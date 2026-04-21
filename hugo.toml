@@ -1,3 +1,4 @@
 baseURL = 'https://example.org/'
 locale = 'en-us'
 title = 'My New Hugo Project'
+baseURL = "https://pabo3000.github.io/reise-site/"
