@@ -1,7 +1,21 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{{ .Title }}</title>
+
+  {{ $styles := resources.Get "css/main.css" | postCSS | minify }}
+  <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
+</head>
+
 <body class="bg-gray-100 text-gray-900">
 
+  <!-- Header -->
   <header class="bg-white shadow">
     <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
+      
       <a href="{{ "/" | relURL }}" class="text-xl font-bold text-blue-600">
         Reise-Site
       </a>
@@ -10,15 +24,19 @@
         <a href="{{ "/" | relURL }}" class="hover:text-blue-600">Home</a>
         <a href="{{ "/posts/" | relURL }}" class="hover:text-blue-600">Blog</a>
       </nav>
+
     </div>
   </header>
 
+  <!-- Content -->
   <main class="max-w-5xl mx-auto px-4 py-10">
     {{ block "main" . }}{{ end }}
   </main>
 
+  <!-- Footer -->
   <footer class="text-center text-sm text-gray-500 py-6">
     © {{ now.Year }} Reise-Site
   </footer>
 
 </body>
+</html>
