@@ -1,0 +1,37 @@
+name: Build and Deploy Hugo Site
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repo auschecken
+        uses: actions/checkout@v4
+
+      - name: Hugo installieren
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.160.1'
+          extended: true
+
+      - name: Node installieren
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Dependencies installieren
+        run: npm ci
+
+      - name: Seite bauen
+        run: hugo
+
+      - name: Deploy zu GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
